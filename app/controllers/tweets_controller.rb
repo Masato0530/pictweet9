@@ -1,15 +1,13 @@
 class TweetsController < ApplicationController
- before_action :set_tweet, only: [:edit, :show]
- before_action :move_to_index, except: [:index, :show]
-
-
+  before_action :set_tweet, only: [:edit, :show]
+  before_action :move_to_index, except: [:index, :show]
 
   def index
     @tweets = Tweet.all
   end
 
   def new
-    @tweets = Tweet.new
+    @tweet = Tweet.new
   end
 
   def create
@@ -32,11 +30,9 @@ class TweetsController < ApplicationController
   def show
   end
 
-
   private
-
   def tweet_params
-    params.require(:tweet).permit(:name, :image, :text) #特定のキーを受け取れるように制限
+    params.require(:tweet).permit(:name, :image, :text).merge(user_id: current_user.id)
   end
 
   def set_tweet
@@ -49,3 +45,4 @@ class TweetsController < ApplicationController
     end
   end
 end
+
