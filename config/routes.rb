@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users #ユーザー機能に必要な複数のルーティングを一度に生成してくれるメソッド
+  devise_for :users 
   root to: 'tweets#index'
   resources :tweets
+  resources :users, only: :show
 end
